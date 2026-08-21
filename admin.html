@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin | Alpha Creations</title>
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data: https://bpcppbohpubspgskoogp.supabase.co; connect-src 'self' https://bpcppbohpubspgskoogp.supabase.co; base-uri 'self'; form-action 'self'; object-src 'none'">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000000'/%3E%3Ccircle cx='16' cy='13' r='6.4' fill='none' stroke='%23BA0005' stroke-width='1.6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="admin-shell">
+
+  <!-- ============ LOGIN ============ -->
+  <section class="admin-login" id="loginView">
+    <form class="admin-login-card" id="loginForm">
+      <img class="admin-login-logo" src="assets/logo.png" alt="Alpha Creations">
+      <h1>Admin</h1>
+      <p class="admin-login-note">Sign in to manage leads and gallery photos.</p>
+      <div class="admin-field">
+        <label for="loginEmail">Email</label>
+        <input id="loginEmail" type="email" autocomplete="username" required>
+      </div>
+      <div class="admin-field">
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="admin-btn admin-btn-solid">Sign in</button>
+      <p class="admin-error" id="loginError" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- ============ DASHBOARD ============ -->
+  <section class="admin-dashboard" id="dashboardView" hidden>
+    <header class="admin-header">
+      <div class="admin-header-brand">
+        <img src="assets/logo.png" alt="Alpha Creations">
+        <span>Admin</span>
+      </div>
+      <nav class="admin-tabs">
+        <button type="button" class="admin-tab is-active" data-tab="leads">Leads</button>
+        <button type="button" class="admin-tab" data-tab="gallery">Gallery</button>
+      </nav>
+      <button type="button" class="admin-btn admin-btn-ghost" id="logoutBtn">Sign out</button>
+    </header>
+
+    <!-- LEADS TAB -->
+    <div class="admin-panel is-active" id="panel-leads">
+      <div class="admin-panel-head">
+        <h2>Leads</h2>
+        <button type="button" class="admin-btn admin-btn-ghost" id="refreshLeadsBtn">Refresh</button>
+      </div>
+      <p class="admin-empty" id="leadsEmpty" hidden>No leads yet.</p>
+      <div class="admin-table-wrap">
+        <table class="admin-table" id="leadsTable" hidden>
+          <thead>
+            <tr>
+              <th>When</th>
+              <th>Source</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Event date</th>
+              <th>Message</th>
+              <th>Contacted</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="leadsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- GALLERY TAB -->
+    <div class="admin-panel" id="panel-gallery">
+      <div class="admin-panel-head">
+        <h2>Gallery</h2>
+      </div>
+
+      <form class="admin-upload-card" id="uploadForm">
+        <h3>Add a photo</h3>
+        <div class="admin-field">
+          <label for="uploadFile">Photo</label>
+          <input id="uploadFile" type="file" accept="image/png,image/jpeg,image/webp" required>
+        </div>
+        <div class="admin-field-row">
+          <div class="admin-field">
+            <label for="uploadCategory">Category label</label>
+            <input id="uploadCategory" type="text" placeholder="e.g. Mehndi">
+          </div>
+          <div class="admin-field">
+            <label for="uploadCaption">Caption</label>
+            <input id="uploadCaption" type="text" placeholder="e.g. Outdoor stage, fairy lights">
+          </div>
+        </div>
+        <label class="admin-checkbox">
+          <input type="checkbox" id="uploadSpan">
+          Wide card (spans two columns)
+        </label>
+        <button type="submit" class="admin-btn admin-btn-solid" id="uploadSubmit">Upload photo</button>
+        <p class="admin-error" id="uploadError" role="alert"></p>
+        <p class="admin-note" id="uploadNote"></p>
+      </form>
+
+      <p class="admin-empty" id="galleryEmpty" hidden>No photos yet.</p>
+      <div class="admin-gallery-grid" id="galleryAdminGrid"></div>
+    </div>
+  </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3/dist/umd/supabase.min.js" integrity="sha384-l8ah+VgaWtk1mvOe9VC+OirC6qHFF4yH7l7mKRidV9MSti3E9F463bMp6ZVN4kuC" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

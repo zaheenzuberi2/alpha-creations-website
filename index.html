@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+  THESIS: An event company sells a feeling, not a feature list — the portfolio IS the pitch.
+  This page stays out of its own way: near-black canvas, one warm gold accent pulled straight
+  from the client's own fairy-lights and marigold in their real photos, and a signature
+  scroll-driven color-reveal on the gallery (images arrive desaturated, bloom into color as
+  they enter view) as the literal metaphor for "we bring your event to life."
+  OWN-WORLD: Warm near-black ink (not blue-black — differentiates from a cooler "tech" dark
+  theme), single gold accent, Cormorant Garamond for display (romantic, editorial serif) +
+  Outfit for body/UI. Real client photography only — no stock, no fabricated imagery.
+  STORY: A couple or family planning a wedding/mehndi/birthday lands, sees real work (not a
+  template), watches photos bloom into color while scrolling, and messages on WhatsApp.
+  FIRST VIEWPORT: full-bleed real photo (their own outdoor fairy-light installation), warm dark
+  scrim, floating glass category badges drifting gently, serif headline revealed word by word.
+  FORM: Direction chosen via one AskUserQuestion round (client picked "Cinematic gallery" over
+  vibrant/minimal-luxury/theatrical alternatives) grounded in real reference pulled from 21st.dev
+  (scroll-linked grayscale-to-color reveal, 3D/overlapping gallery, glass floating nav) —
+  no Node/Python in this environment, so no scripted design-system search ran; palette and
+  type chosen by hand instead. Only six real photos exist so far (client said more may follow);
+  no fabricated services, stats, testimonials, address, or social links — WhatsApp/phone are the
+  only contact channels given, so they're the only ones shown.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review,
+  the verdict, and DESIGN.md.
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpha Creations | Event Management &amp; Decor, Islamabad &amp; Rawalpindi</title>
+<meta name="description" content="Alpha Creations plans and decorates weddings, mehndis, birthdays and more across Islamabad and Rawalpindi. Stage decor, bridal room, dhol, catering, lighting and full event planning.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alpha Creations">
+<meta property="og:title" content="Alpha Creations | Event Management &amp; Decor, Islamabad &amp; Rawalpindi">
+<meta property="og:description" content="Alpha Creations plans and decorates weddings, mehndis, birthdays and more across Islamabad and Rawalpindi. Stage decor, bridal room, dhol, catering, lighting and full event planning.">
+<meta property="og:image" content="assets/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Alpha Creations | Event Management &amp; Decor, Islamabad &amp; Rawalpindi">
+<meta name="twitter:description" content="Alpha Creations plans and decorates weddings, mehndis, birthdays and more across Islamabad and Rawalpindi.">
+<meta name="twitter:image" content="assets/logo.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://bpcppbohpubspgskoogp.supabase.co; frame-src https://www.google.com; connect-src 'self' https://bpcppbohpubspgskoogp.supabase.co; base-uri 'self'; form-action 'self' https://wa.me; object-src 'none'">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000000'/%3E%3Ccircle cx='16' cy='13' r='6.4' fill='none' stroke='%23BA0005' stroke-width='1.6'/%3E%3Cpath d='M13 13 Q16 15.5 19 13' fill='none' stroke='%23BA0005' stroke-width='1.2'/%3E%3Cpath d='M13.6 19.4 L18.4 19.4 L17.6 23 L14.4 23 Z' fill='%23BA0005'/%3E%3Cg stroke='%23BA0005' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M16 2.5v2.6'/%3E%3Cpath d='M6.5 13h2.6'/%3E%3Cpath d='M22.9 13h2.6'/%3E%3Cpath d='M9.4 6.4l1.8 1.8'/%3E%3Cpath d='M20.8 8.2l1.8-1.8'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader" aria-hidden="true">
+  <img class="preloader-mark" src="assets/logo.png" alt="">
+</div>
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a href="#top" class="brand" aria-label="Alpha Creations home">
+      <img class="brand-mark" src="assets/logo.png" alt="Alpha Creations">
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-cta">
+      <a class="btn btn-ghost" data-magnetic href="tel:+923409617476">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M6.6 10.8c1.6 3.2 4 5.6 7.2 7.2l2.4-2.4c.3-.3.8-.4 1.2-.3 1.3.4 2.7.7 4.1.7.7 0 1.1.5 1.1 1.1v3.8c0 .7-.5 1.1-1.1 1.1C11.6 22 2 12.4 2 1.5 2 .9 2.5.4 3.2.4H7c.6 0 1.1.5 1.1 1.1 0 1.4.3 2.8.7 4.1.1.4 0 .9-.3 1.2L6.6 10.8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>0340&#8209;9617476</span>
+      </a>
+      <a class="btn btn-solid" data-magnetic href="https://wa.me/923409617476?text=Hi%20Alpha%20Creations%2C%20I%27d%20like%20to%20ask%20about%20booking%20an%20event" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.6 9.4c.3 2.1 2.7 4.5 4.8 4.8.9.1 1.6-.6 1.9-1.4l-2-1-.7.9c-1-.5-2-1.5-2.5-2.5l.9-.7-1-2c-.8.3-1.5 1-1.4 1.9Z" fill="currentColor"/></svg>
+        <span>WhatsApp</span>
+      </a>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+    <div class="mobile-nav-cta">
+      <a class="btn btn-ghost" href="tel:+923409617476">Call 0340-9617476</a>
+      <a class="btn btn-solid" href="https://wa.me/923409617476" target="_blank" rel="noopener">WhatsApp Us</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-photo">
+    <img src="assets/outdoor-lights.jpg" alt="A home entrance decorated by Alpha Creations with warm fairy lights" fetchpriority="high">
+    <div class="hero-scrim"></div>
+  </div>
+
+  <div class="hero-badges" aria-hidden="true">
+    <span class="hero-badge" data-float="1">Weddings &amp; Mehndi</span>
+    <span class="hero-badge" data-float="2">Bridal Room Decor</span>
+    <span class="hero-badge hero-badge-accent" data-float="3">Dhol &amp; Bands</span>
+  </div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <p class="hero-plate reveal-fade">EVENT MANAGEMENT &amp; DECOR IN ISLAMABAD &amp; RAWALPINDI</p>
+      <h1 class="hero-headline" data-split-words>We plan and decorate weddings, mehndis and parties.</h1>
+      <p class="hero-sub reveal-fade">Stage decor, bridal room, dhol, lighting, catering and more, all handled
+        by one team so you're not chasing five different vendors.</p>
+      <div class="hero-actions reveal-fade">
+        <a class="btn btn-solid btn-lg" data-magnetic href="https://wa.me/923409617476?text=Hi%20Alpha%20Creations%2C%20I%27d%20like%20to%20ask%20about%20booking%20an%20event" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" class="icon"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.6 9.4c.3 2.1 2.7 4.5 4.8 4.8.9.1 1.6-.6 1.9-1.4l-2-1-.7.9c-1-.5-2-1.5-2.5-2.5l.9-.7-1-2c-.8.3-1.5 1-1.4 1.9Z" fill="currentColor"/></svg>
+          Plan My Event
+        </a>
+        <a class="btn btn-outline btn-lg" data-magnetic href="#gallery">See Our Work</a>
+      </div>
+    </div>
+
+    <div class="hero-trust glass reveal-fade" id="heroTrust" data-float="4">
+      <div class="hero-trust-stat">
+        <span class="hero-trust-num"><span data-count-to="12">0</span>+</span>
+        <span class="hero-trust-label">years planning &amp; decorating real events</span>
+      </div>
+      <div class="hero-trust-divider" aria-hidden="true"></div>
+      <div class="hero-trust-marquee" aria-hidden="true">
+        <div class="hero-trust-track">
+          <span class="hero-trust-logo"><img src="assets/clients/pakistan-army.png" alt=""></span>
+          <span class="hero-trust-logo"><img src="assets/clients/limelight.svg" alt=""></span>
+          <span class="hero-trust-logo"><img src="assets/clients/tehzeeb.png" alt=""></span>
+          <span class="hero-trust-logo"><img src="assets/clients/allied-schools.png" alt=""></span>
+          <span class="hero-trust-logo"><img src="assets/clients/daraz.png" alt=""></span>
+          <span class="hero-trust-logo"><img src="assets/clients/emporium-mall.png" alt=""></span>
+          <span class="hero-trust-logo"><img src="assets/clients/pakistan-army.png" alt=""></span>
+          <span class="hero-trust-logo"><img src="assets/clients/limelight.svg" alt=""></span>
+          <span class="hero-trust-logo"><img src="assets/clients/tehzeeb.png" alt=""></span>
+          <span class="hero-trust-logo"><img src="assets/clients/allied-schools.png" alt=""></span>
+          <span class="hero-trust-logo"><img src="assets/clients/daraz.png" alt=""></span>
+          <span class="hero-trust-logo"><img src="assets/clients/emporium-mall.png" alt=""></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="scroll-cue" id="scrollCue" aria-label="Scroll to see our services">
+    <span>OUR WORK</span>
+    <svg viewBox="0 0 24 24"><path d="M12 4v16M6 14l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services" id="services">
+  <div class="orb orb-red orb-services" aria-hidden="true"></div>
+  <div class="wrap">
+    <h2 class="reveal-up">What we do</h2>
+    <p class="section-lede reveal-up">Everything below is built around your event. Nothing is off the shelf.</p>
+
+    <div class="service-list" id="serviceList" role="list">
+
+      <div class="service-row" role="listitem">
+        <span class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V10l6-6 6 6v10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 20v-6h4v6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </span>
+        <span class="service-text"><h3>Wedding &amp; Mehndi Decor</h3><p>Stage design, backdrops and seating dressed in your colors.</p></span>
+      </div>
+
+      <div class="service-row" role="listitem">
+        <span class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M6 21V11a6 6 0 0 1 12 0v10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4 21h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M12 5V3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="service-text"><h3>Bridal Room Decor</h3><p>A private, camera-ready room for the bride to get ready and rest between functions.</p></span>
+      </div>
+
+      <div class="service-row" role="listitem">
+        <span class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 13V9M9 13h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 3h6M10 3v3M14 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="service-text"><h3>Dhol &amp; Baraat Bands</h3><p>Live dhol players and bands to bring in the baraat or open the mehndi.</p></span>
+      </div>
+
+      <div class="service-row" role="listitem">
+        <span class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 21V9l8-6 8 6v12" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 21v-7h6v7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </span>
+        <span class="service-text"><h3>House &amp; Venue Decoration</h3><p>Entrance, lounge and hall styling for at-home functions and receptions.</p></span>
+      </div>
+
+      <div class="service-row" role="listitem">
+        <span class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3v3M5 7l2 2M19 7l-2 2M3 14h3M18 14h3M7 20l2-3M17 20l-2-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </span>
+        <span class="service-text"><h3>Outdoor &amp; Venue Lighting</h3><p>Fairy lights, lanterns and canopy lighting for gates, gardens and lawns.</p></span>
+      </div>
+
+      <div class="service-row" role="listitem">
+        <span class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 12v9M16 15v6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </span>
+        <span class="service-text"><h3>Balloon Decor</h3><p>Garlands and arches for birthdays, baby showers and small celebrations.</p></span>
+      </div>
+
+      <div class="service-row" role="listitem">
+        <span class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="12" width="18" height="6" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 12l2-5h10l2 5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="7.5" cy="18.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="18.5" r="1.5" fill="currentColor"/></svg>
+        </span>
+        <span class="service-text"><h3>Car Decoration</h3><p>Flowers and lights for the bride and groom's car.</p></span>
+      </div>
+
+      <div class="service-row" role="listitem">
+        <span class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 10h16l-1.5 9h-13L4 10Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </span>
+        <span class="service-text"><h3>Catering</h3><p>Menus and serving staff arranged alongside the decor, so it's one team, not two.</p></span>
+      </div>
+
+      <div class="service-row" role="listitem">
+        <span class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2v6M12 8l4 4-4 12-4-12 4-4Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M5 6l2 2M19 6l-2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="service-text"><h3>Fireworks</h3><p>A display to close out the baraat or the reception night.</p></span>
+      </div>
+
+      <div class="service-row" role="listitem">
+        <span class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="service-text"><h3>Full Event Planning</h3><p>One team for design, vendors, setup and clean-up on the day.</p></span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY — scroll color reveal ============ -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <h2 class="reveal-up">From our recent events</h2>
+    <p class="section-lede reveal-up">A few real setups from past events. More photos coming soon.</p>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <figure class="gallery-item span-2">
+      <img src="assets/mehndi-stage-yellow.jpg" alt="Outdoor mehndi stage with marigold garlands and fairy-light canopy">
+      <figcaption><span>Mehndi &amp; Wedding</span>Outdoor stage, marigold &amp; fairy lights</figcaption>
+    </figure>
+    <figure class="gallery-item">
+      <img src="assets/baby-shower-blue.jpg" alt="Baby-blue balloon backdrop with floral arch for a baby shower">
+      <figcaption><span>Baby Shower</span>Balloon &amp; floral backdrop</figcaption>
+    </figure>
+    <figure class="gallery-item">
+      <img src="assets/birthday-balloons.jpg" alt="Lilac and gold balloon garland arch for a birthday celebration">
+      <figcaption><span>Birthday</span>Balloon garland arch</figcaption>
+    </figure>
+    <figure class="gallery-item span-2">
+      <img src="assets/outdoor-lights.jpg" alt="A home entrance strung with warm fairy lights for an evening event">
+      <figcaption><span>Venue Lighting</span>Fairy-light entrance design</figcaption>
+    </figure>
+    <figure class="gallery-item span-2">
+      <img src="assets/mehndi-backdrop-curtains.jpg" alt="Pink, orange and yellow curtain backdrop with fairy lights for a mehndi function">
+      <figcaption><span>Mehndi</span>Curtain backdrop &amp; seating</figcaption>
+    </figure>
+    <figure class="gallery-item">
+      <img src="assets/mehndi-stage-colorful.jpg" alt="Colorful indoor mehndi stage with drapes and hanging umbrella decor">
+      <figcaption><span>Mehndi</span>Indoor stage design</figcaption>
+    </figure>
+  </div>
+
+  <div class="gallery-counter" id="galleryCounter" aria-hidden="true"><span id="galleryCounterCurrent">01</span><span>/</span><span id="galleryCounterTotal">06</span></div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="process" id="process">
+  <div class="wrap">
+    <p class="process-kicker reveal-up">HOW IT WORKS</p>
+    <h2 class="process-title reveal-up">From first message to the last light off.</h2>
+
+    <ol class="process-strip">
+      <li class="reveal-up"><span class="step-no">01</span><h3>Consultation</h3><p>Tell us the event, the date and the theme, on WhatsApp or a call.</p></li>
+      <li class="reveal-up"><span class="step-no">02</span><h3>Design &amp; Quote</h3><p>A concept and price built around your venue and budget.</p></li>
+      <li class="reveal-up"><span class="step-no">03</span><h3>Setup</h3><p>Our team builds the full setup before your guests arrive.</p></li>
+      <li class="reveal-up"><span class="step-no">04</span><h3>Live &amp; Clean-Up</h3><p>We stay through the event and clear everything after.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ LEADERSHIP ============ -->
+<section class="leadership" id="leadership">
+  <div class="wrap">
+    <h2 class="reveal-up">Who runs it</h2>
+    <p class="section-lede reveal-up">Tap or hover a card for a direct line.</p>
+
+    <div class="leadership-grid">
+      <div class="flip-card reveal-up" data-flip tabindex="0" role="button" aria-label="Flip to see CEO's contact details">
+        <div class="flip-card-inner">
+          <div class="flip-face flip-face-front">
+            <span class="flip-avatar" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </span>
+            <h3>Chaudhary Nabeel Ahmed Khawar</h3>
+            <p class="flip-role">Chief Executive Officer</p>
+            <span class="flip-hint">TAP FOR CONTACT</span>
+          </div>
+          <div class="flip-face flip-face-back">
+            <h3>Chaudhary Nabeel Ahmed Khawar</h3>
+            <a class="btn btn-solid" href="https://wa.me/923405846652?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20booking%20an%20event" target="_blank" rel="noopener" data-no-flip>
+              <svg viewBox="0 0 24 24" class="icon"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.6 9.4c.3 2.1 2.7 4.5 4.8 4.8.9.1 1.6-.6 1.9-1.4l-2-1-.7.9c-1-.5-2-1.5-2.5-2.5l.9-.7-1-2c-.8.3-1.5 1-1.4 1.9Z" fill="currentColor"/></svg>
+              WhatsApp
+            </a>
+            <p class="flip-note">0340&#8209;5846652</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card reveal-up" data-flip tabindex="0" role="button" aria-label="COO details coming soon">
+        <div class="flip-card-inner">
+          <div class="flip-face flip-face-front">
+            <span class="flip-avatar" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </span>
+            <h3>Coming Soon</h3>
+            <p class="flip-role">Chief Operating Officer</p>
+            <span class="flip-hint">DETAILS ON THE WAY</span>
+          </div>
+          <div class="flip-face flip-face-back">
+            <h3>Details coming soon</h3>
+            <p class="flip-note">Check back shortly, or reach the CEO in the meantime.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLIENTS ============ -->
+<section class="clients" id="clients">
+  <div class="orb orb-red orb-clients" aria-hidden="true"></div>
+  <div class="wrap">
+    <h2 class="reveal-up">Trusted by</h2>
+    <div class="clients-stat reveal-up">
+      <span class="num" data-count-to="12">0</span>
+      <span class="num-label">years planning and decorating events, for names like these</span>
+    </div>
+
+    <div class="client-wall" id="clientWall">
+      <div class="client-chip reveal-up"><img src="assets/clients/pakistan-army.png" alt="Pakistan Army"></div>
+      <div class="client-chip reveal-up"><img src="assets/clients/limelight.svg" alt="Limelight"></div>
+      <div class="client-chip reveal-up text-only">Tower&nbsp;12</div>
+      <div class="client-chip reveal-up"><img src="assets/clients/tehzeeb.png" alt="Tehzeeb Bakers"></div>
+      <div class="client-chip reveal-up"><img src="assets/clients/allied-schools.png" alt="Allied Schools"></div>
+      <div class="client-chip reveal-up"><img src="assets/clients/daraz.png" alt="Daraz"></div>
+      <div class="client-chip reveal-up"><img src="assets/clients/emporium-mall.png" alt="Emporium Mall"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="orb orb-red orb-contact" aria-hidden="true"></div>
+  <div class="wrap contact-inner">
+    <div class="contact-copy reveal-up">
+      <h2>Let's plan your event</h2>
+      <p class="section-lede">Message us your date and what you're celebrating. We usually reply on
+        WhatsApp within the day.</p>
+
+      <ul class="contact-list">
+        <li>
+          <svg viewBox="0 0 24 24" class="icon"><path d="M6.6 10.8c1.6 3.2 4 5.6 7.2 7.2l2.4-2.4c.3-.3.8-.4 1.2-.3 1.3.4 2.7.7 4.1.7.7 0 1.1.5 1.1 1.1v3.8c0 .7-.5 1.1-1.1 1.1C11.6 22 2 12.4 2 1.5 2 .9 2.5.4 3.2.4H7c.6 0 1.1.5 1.1 1.1 0 1.4.3 2.8.7 4.1.1.4 0 .9-.3 1.2L6.6 10.8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <div><a href="tel:+923409617476">0340&#8209;9617476</a></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" class="icon"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          <div><a href="https://wa.me/923409617476" target="_blank" rel="noopener">WhatsApp: 0340-9617476</a></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" class="icon"><path d="M12 21s7-6.3 7-11.5A7 7 0 0 0 5 9.5C5 14.7 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9.5" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          <div>Shop No. LG&nbsp;49, Arrives Tower, near Metro Station, Shamshabad, Islamabad</div>
+        </li>
+      </ul>
+      <p class="hero-footnote">Not on Instagram yet. Our latest work will be posted there soon.</p>
+    </div>
+
+    <form class="contact-form glass reveal-up" id="contactForm" novalidate>
+      <div class="form-row"><label for="cf-name">Full name</label><input id="cf-name" name="name" type="text" autocomplete="name" required></div>
+      <div class="form-row form-row-split">
+        <div><label for="cf-phone">Phone</label><input id="cf-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div><label for="cf-date">Event date</label><input id="cf-date" name="date" type="text" placeholder="e.g. 14 March"></div>
+      </div>
+      <div class="form-row"><label for="cf-message">Tell us about your event</label><textarea id="cf-message" name="message" rows="4" placeholder="e.g. Mehndi for ~80 guests, yellow &amp; gold theme, outdoor lawn"></textarea></div>
+      <button type="submit" class="btn btn-solid btn-lg btn-block" data-magnetic>Send &amp; open WhatsApp</button>
+      <p class="form-note" id="formNote">This opens WhatsApp with your details filled in. Nothing is sent from this page.</p>
+    </form>
+  </div>
+
+  <div class="map-wrap reveal-up">
+    <iframe title="Alpha Creations shop location" src="https://www.google.com/maps?q=33.6517778,73.0816389&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <a href="#top" class="brand brand-footer">
+      <img class="brand-mark" src="assets/logo.png" alt="Alpha Creations">
+    </a>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#process">Process</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="footer-contact">
+      <a href="tel:+923409617476">0340-9617476</a>
+      <a href="https://wa.me/923409617476" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>&copy; <span id="year"></span> Alpha Creations. All rights reserved.</p>
+    <p>Islamabad &amp; Rawalpindi, Pakistan.</p>
+  </div>
+</footer>
+
+<a class="whatsapp-fab" data-magnetic href="https://wa.me/923409617476?text=Hi%20Alpha%20Creations%2C%20I%27d%20like%20to%20ask%20about%20booking%20an%20event" target="_blank" rel="noopener" aria-label="Message Alpha Creations on WhatsApp">
+  <span class="whatsapp-fab-ring"></span>
+  <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.4 9.2c.3 2.3 2.9 4.9 5.2 5.2 1 .1 1.7-.6 2-1.5l-2.2-1.1-.8 1c-1.1-.5-2.2-1.6-2.7-2.7l1-.8-1.1-2.2c-.9.3-1.6 1-1.4 2.1Z" fill="currentColor"/></svg>
+</a>
+
+<!-- ============ CHATBOT ============ -->
+<div class="chatbot" id="chatbot">
+  <button class="chatbot-toggle" id="chatbotToggle" type="button" aria-expanded="false" aria-controls="chatbotPanel" aria-label="Chat with Alpha Creations">
+    <svg class="chatbot-icon-chat" viewBox="0 0 24 24"><path d="M4 4h16v12H8l-4 4V4Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+    <svg class="chatbot-icon-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </button>
+
+  <div class="chatbot-panel glass" id="chatbotPanel" role="dialog" aria-label="Alpha Creations chat" aria-hidden="true">
+    <div class="chatbot-header">
+      <img src="assets/logo.png" alt="" class="chatbot-avatar">
+      <div>
+        <strong>Alpha Creations</strong>
+        <span>Usually replies within the day</span>
+      </div>
+    </div>
+
+    <div class="chatbot-body" id="chatbotBody" aria-live="polite">
+      <div class="chatbot-msg chatbot-msg-bot">Hi, I'm here to help with quick questions about weddings, mehndis, birthdays and more. Ask me anything, or pick one below.</div>
+    </div>
+
+    <div class="chatbot-quick" id="chatbotQuick">
+      <button type="button" data-q="services">What services do you offer?</button>
+      <button type="button" data-q="price">How much does it cost?</button>
+      <button type="button" data-q="area">Which areas do you cover?</button>
+      <button type="button" data-q="book">How do I book?</button>
+      <button type="button" data-q="location">Where are you located?</button>
+    </div>
+
+    <form class="chatbot-form" id="chatbotForm">
+      <input type="text" id="chatbotInput" placeholder="Type a question…" autocomplete="off">
+      <button type="submit" aria-label="Send message">
+        <svg viewBox="0 0 24 24"><path d="M4 12h16M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3/dist/umd/supabase.min.js" integrity="sha384-l8ah+VgaWtk1mvOe9VC+OirC6qHFF4yH7l7mKRidV9MSti3E9F463bMp6ZVN4kuC" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
