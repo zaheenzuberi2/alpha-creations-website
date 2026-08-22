@@ -304,6 +304,8 @@ input:focus,textarea:focus{border-color:var(--red-500);box-shadow:0 0 0 3px rgba
 .footer-contact{display:flex;gap:1.4rem;flex-wrap:wrap;font-size:.88rem;color:rgba(255,255,255,.72);}
 .footer-contact a:hover{color:var(--red-bright);}
 .footer-bottom{border-top:1px solid var(--line);padding-block:1.3rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;font-size:.78rem;color:rgba(255,255,255,.5);}
+.footer-credit a{color:rgba(255,255,255,.65);text-decoration:underline;text-underline-offset:2px;}
+.footer-credit a:hover{color:var(--red-bright);}
 
 /* =====================================================================
    WHATSAPP FAB
