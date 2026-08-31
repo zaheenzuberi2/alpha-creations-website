@@ -1,0 +1,27 @@
+name: Keep Supabase alive
+
+# Supabase's free tier pauses a project after 7 days with no database
+# activity. This runs well inside that window (every 3 days) so the
+# gallery, leads, and admin panel never go dark on their own.
+on:
+  schedule:
+    - cron: "0 6 */3 * *"
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        run: |
+          http_code=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://bpcppbohpubspgskoogp.supabase.co/rest/v1/gallery?select=id&limit=1" \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}")
+          echo "Supabase responded with HTTP $http_code"
+          if [ "$http_code" -ge 400 ]; then
+            echo "Unexpected status code from Supabase"
+            exit 1
+          fi
+        env:
+          SUPABASE_ANON_KEY: sb_publishable_YQVrdoMffxfyxoQJz8IFVw_7RZ45-co
