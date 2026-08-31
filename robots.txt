@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://zaheenzuberi2.github.io/alpha-creations-website/sitemap.xml
