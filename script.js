@@ -229,6 +229,14 @@
 
     var items = document.querySelectorAll(".gallery-item");
 
+    function loadAndPlayVideo(item) {
+      var video = item.querySelector("video[data-src]");
+      if (!video) return;
+      video.src = video.dataset.src;
+      delete video.dataset.src;
+      video.play().catch(function () { /* autoplay blocked — fine, still shows a frame once loaded */ });
+    }
+
     if (hasST && !reduceMotion) {
       items.forEach(function (item, i) {
         galleryScrollTriggers.push(ScrollTrigger.create({
@@ -237,11 +245,12 @@
           once: true,
           onEnter: function () {
             gsap.delayedCall(i % 3 * 0.08, function () { item.classList.add("is-revealed"); });
+            loadAndPlayVideo(item);
           }
         }));
       });
     } else {
-      items.forEach(function (item) { item.classList.add("is-revealed"); });
+      items.forEach(function (item) { item.classList.add("is-revealed"); loadAndPlayVideo(item); });
     }
 
     if (hasGSAP && !reduceMotion && window.matchMedia("(hover: hover)").matches) {
@@ -284,12 +293,11 @@
 
     if (isVideoPath(row.image_path)) {
       var video = document.createElement("video");
-      video.src = row.image_path;
+      video.dataset.src = row.image_path; // lazy: only loaded once scrolled into view
       video.muted = true;
       video.loop = true;
       video.playsInline = true;
-      video.autoplay = true;
-      video.preload = "metadata";
+      video.preload = "none";
       fig.appendChild(video);
       var badge = document.createElement("span");
       badge.className = "gallery-video-badge";
