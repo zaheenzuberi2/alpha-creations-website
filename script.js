@@ -274,14 +274,36 @@
   }
   initGalleryInteractions();
 
+  function isVideoPath(path) {
+    return /\.(mp4|webm|mov)$/i.test(path || "");
+  }
+
   function renderGalleryItem(row) {
     var fig = document.createElement("figure");
     fig.className = row.span_two ? "gallery-item span-2" : "gallery-item";
-    var img = document.createElement("img");
-    img.src = row.image_path;
-    img.loading = "lazy";
-    img.alt = [row.category, row.caption].filter(Boolean).join(" — ") || "Alpha Creations event photo";
-    fig.appendChild(img);
+
+    if (isVideoPath(row.image_path)) {
+      var video = document.createElement("video");
+      video.src = row.image_path;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.autoplay = true;
+      video.preload = "metadata";
+      fig.appendChild(video);
+      var badge = document.createElement("span");
+      badge.className = "gallery-video-badge";
+      badge.setAttribute("aria-hidden", "true");
+      badge.innerHTML = "<svg viewBox=\"0 0 24 24\"><path d=\"M8 5v14l11-7Z\" fill=\"currentColor\"/></svg>";
+      fig.appendChild(badge);
+    } else {
+      var img = document.createElement("img");
+      img.src = row.image_path;
+      img.loading = "lazy";
+      img.alt = [row.category, row.caption].filter(Boolean).join(" — ") || "Alpha Creations event photo";
+      fig.appendChild(img);
+    }
+
     var figcap = document.createElement("figcaption");
     if (row.category) {
       var span = document.createElement("span");
@@ -387,9 +409,9 @@
 
     var answers = {
       services: "We do wedding &amp; mehndi decor, bridal room styling, dhol &amp; baraat bands, house &amp; venue decoration, outdoor lighting, balloon decor, car decoration, catering, fireworks and full event planning. See the <a href=\"#services\">Services</a> section for details.",
-      price: "Pricing depends on your venue, guest count and theme, so every event gets its own design &amp; quote. Tell us your event details on WhatsApp and we'll send a price.",
+      price: "Pricing depends on your venue, guest count and theme, so every event gets its own design &amp; quote.",
       area: "We cover Islamabad and Rawalpindi.",
-      book: "Message us your event date and what you're celebrating on WhatsApp, or fill in the form in the <a href=\"#contact\">Contact</a> section. We usually reply within the day.",
+      book: "Happy to help you book.",
       location: "Shop No. LG 49, Arrives Tower, near Metro Station, Shamshabad, Islamabad."
     };
 
@@ -397,9 +419,16 @@
       { re: /service|offer|decor|dhol|catering|firework|light|balloon|bridal|stage/i, key: "services" },
       { re: /price|cost|rate|budget|charge|fee|quote/i, key: "price" },
       { re: /area|city|cover|rawalpindi|islamabad/i, key: "area" },
-      { re: /book|hire|avail|reserve|order|date/i, key: "book" },
+      { re: /book|hire|avail|reserve|order/i, key: "book" },
       { re: /address|shop|map|direction|located|location|where/i, key: "location" }
     ];
+
+    // Strong buying-intent signals — pricing, booking, or naming an event type.
+    // Any of these (outside an active lead flow) opens the name/phone capture.
+    var leadIntentRe = /price|cost|rate|budget|charge|fee|quote|book|hire|avail|reserve|wedding|mehndi|birthday|baby shower|engagement|anniversary|walima|nikah|planning|event\b/i;
+    var greetingRe = /^\s*(hi|hello|hey|salam|assalam|asalam|aoa)\b/i;
+    var thanksRe = /\bthank/i;
+    var skipRe = /^\s*(skip|no|no thanks|cancel|never mind|nvm)\s*$/i;
 
     function addMessage(html, who) {
       var el = document.createElement("div");
@@ -419,11 +448,94 @@
       return "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(text);
     }
 
+    // =====================================================================
+    // LEAD-CAPTURE FLOW — name -> phone -> event details -> save
+    // =====================================================================
+    var flow = { state: "idle", name: null, phone: null };
+
+    function saveLead(details) {
+      if (!window.sbClient) return;
+      window.sbClient.from("leads").insert({
+        name: flow.name, phone: flow.phone, message: details || null, source: "chatbot"
+      }).then(function (res) {
+        if (res.error) console.error("Lead capture failed", res.error);
+      }).catch(function (err) { console.error("Lead capture failed", err); });
+    }
+
+    function startLeadFlow() {
+      if (flow.state !== "idle") return;
+      flow.state = "awaiting_name";
+      addMessage("Happy to help. What's your name?", "bot");
+    }
+
+    function handleLeadStep(userText) {
+      if (skipRe.test(userText)) {
+        flow.state = "idle";
+        addMessage("No problem — ask me anything else, or reach us directly on WhatsApp any time.", "bot");
+        return true;
+      }
+
+      if (flow.state === "awaiting_name") {
+        flow.name = userText.slice(0, 80);
+        flow.state = "awaiting_phone";
+        addMessage("Thanks, " + escapeHtml(flow.name) + "! And a phone number to reach you on?", "bot");
+        return true;
+      }
+
+      if (flow.state === "awaiting_phone") {
+        var digits = userText.replace(/\D/g, "");
+        if (digits.length < 7) {
+          addMessage("That doesn't look like a full phone number — could you send it again?", "bot");
+          return true;
+        }
+        flow.phone = userText.slice(0, 30);
+        flow.state = "awaiting_details";
+        addMessage("Got it. Anything about your event I should pass along — occasion, date, guest count? (or type \"skip\")", "bot");
+        return true;
+      }
+
+      if (flow.state === "awaiting_details") {
+        var details = skipRe.test(userText) ? null : userText.slice(0, 500);
+        saveLead(details);
+        addMessage(
+          "Thanks " + escapeHtml(flow.name) + " — we've noted your details and someone from our team will reach out soon. " +
+          "You can also message us right now: <a href=\"" + waLink("Hi Alpha Creations, I'm " + flow.name + " (" + flow.phone + "). " + (details || "")) +
+          "\" target=\"_blank\" rel=\"noopener\">Open WhatsApp</a>.",
+          "bot"
+        );
+        flow.state = "idle";
+        return true;
+      }
+
+      return false;
+    }
+
     function respond(userText) {
+      if (flow.state !== "idle") {
+        handleLeadStep(userText);
+        return;
+      }
+
+      if (greetingRe.test(userText)) {
+        addMessage("Hi! Ask about our services, pricing, or say you'd like to book and I'll take your details.", "bot");
+        return;
+      }
+      if (thanksRe.test(userText)) {
+        addMessage("You're welcome! Anything else I can help with?", "bot");
+        return;
+      }
+
       var match = null;
       for (var i = 0; i < keywordMap.length; i++) {
         if (keywordMap[i].re.test(userText)) { match = keywordMap[i].key; break; }
       }
+
+      if (leadIntentRe.test(userText)) {
+        if (match) addMessage(answers[match], "bot");
+        startLeadFlow();
+        return;
+      }
+
       if (match) {
         addMessage(answers[match], "bot");
       } else {
@@ -436,7 +548,8 @@
         }
         addMessage(
           "I'm not sure about that one, but our team can answer directly. " +
-          "<a href=\"" + waLink("Hi Alpha Creations, I have a question: " + userText) + "\" target=\"_blank\" rel=\"noopener\">Ask on WhatsApp</a>.",
+          "<a href=\"" + waLink("Hi Alpha Creations, I have a question: " + userText) + "\" target=\"_blank\" rel=\"noopener\">Ask on WhatsApp</a>. " +
+          "Or tell me you'd like to book and I'll take your details.",
           "bot"
         );
       }
@@ -464,6 +577,7 @@
       var key = btn.getAttribute("data-q");
       addMessage(escapeHtml(btn.textContent), "user");
       addMessage(answers[key], "bot");
+      if (key === "price" || key === "book") startLeadFlow();
     });
 
     chatForm.addEventListener("submit", function (e) {

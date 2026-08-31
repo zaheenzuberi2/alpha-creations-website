@@ -14,6 +14,9 @@ $mime = @{
   ".png"  = "image/png"
   ".jpg"  = "image/jpeg"
   ".ico"  = "image/x-icon"
+  ".mp4"  = "video/mp4"
+  ".webm" = "video/webm"
+  ".webp" = "image/webp"
 }
 
 $securityHeaders = @{
