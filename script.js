@@ -234,7 +234,12 @@
       if (!video) return;
       video.src = video.dataset.src;
       delete video.dataset.src;
-      video.play().catch(function () { /* autoplay blocked — fine, still shows a frame once loaded */ });
+      var tryPlay = function () { video.play().catch(function () { /* autoplay blocked — retried on visibility below */ }); };
+      tryPlay();
+      // if autoplay was blocked while the tab was backgrounded/loading, retry once it's actually visible
+      document.addEventListener("visibilitychange", function onVis() {
+        if (document.visibilityState === "visible" && video.paused) tryPlay();
+      });
     }
 
     if (hasST && !reduceMotion) {
@@ -295,6 +300,7 @@
       var video = document.createElement("video");
       video.dataset.src = row.image_path; // lazy: only loaded once scrolled into view
       video.muted = true;
+      video.setAttribute("muted", ""); // some browsers (iOS Safari) check the attribute, not just the property, for autoplay eligibility
       video.loop = true;
       video.playsInline = true;
       video.preload = "none";
