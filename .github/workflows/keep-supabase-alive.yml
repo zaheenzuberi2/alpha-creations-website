@@ -1,11 +1,13 @@
 name: Keep Supabase alive
 
 # Supabase's free tier pauses a project after 7 days with no database
-# activity. This runs well inside that window (every 3 days) so the
-# gallery, leads, and admin panel never go dark on their own.
+# activity. This runs daily (well inside that window) so the gallery,
+# leads, and admin panel never go dark on their own. If it ever finds
+# the project already paused, it auto-resumes it via the Management API
+# instead of just failing.
 on:
   schedule:
-    - cron: "0 6 */3 * *"
+    - cron: "0 6 * * *"
   workflow_dispatch: {}
 
 jobs:
@@ -13,15 +15,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Supabase REST API
+        id: ping
         run: |
           http_code=$(curl -s -o /dev/null -w "%{http_code}" \
             "https://bpcppbohpubspgskoogp.supabase.co/rest/v1/gallery?select=id&limit=1" \
             -H "apikey: ${SUPABASE_ANON_KEY}" \
             -H "Authorization: Bearer ${SUPABASE_ANON_KEY}")
           echo "Supabase responded with HTTP $http_code"
-          if [ "$http_code" -ge 400 ]; then
-            echo "Unexpected status code from Supabase"
+          echo "http_code=$http_code" >> "$GITHUB_OUTPUT"
+        env:
+          SUPABASE_ANON_KEY: sb_publishable_YQVrdoMffxfyxoQJz8IFVw_7RZ45-co
+
+      - name: Resume project if it's paused
+        if: steps.ping.outputs.http_code >= '400'
+        run: |
+          status=$(curl -s "https://api.supabase.com/v1/projects/bpcppbohpubspgskoogp" \
+            -H "Authorization: Bearer ${SUPABASE_ACCESS_TOKEN}" | grep -o '"status":"[A-Z_]*"')
+          echo "Project status: $status"
+          if echo "$status" | grep -q INACTIVE; then
+            echo "Project is paused, resuming..."
+            curl -s -X POST "https://api.supabase.com/v1/projects/bpcppbohpubspgskoogp/resume" \
+              -H "Authorization: Bearer ${SUPABASE_ACCESS_TOKEN}"
+          else
+            echo "Project is not paused, ping failure was something else"
             exit 1
           fi
         env:
-          SUPABASE_ANON_KEY: sb_publishable_YQVrdoMffxfyxoQJz8IFVw_7RZ45-co
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
